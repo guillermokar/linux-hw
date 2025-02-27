@@ -34,7 +34,7 @@ fi
 
 xlsx2csv "$EXCEL_FILE" "$CSV_FILE"
 
-TASK_DESC=$(grep "^${TASK_ID}," "$CSV_FILE" | cut -d',' -f2)
+TASK_DESC=$(grep "^${TASK_ID}," "$CSV_FILE" | awk -F',' 'NF>1 {print $2}')
 [[ -z "$TASK_DESC" ]] && echo "Error: Task ID '$TASK_ID' not found." && exit 1
 
 BRANCH=$(grep "^${TASK_ID}," "$CSV_FILE" | cut -d',' -f3)
